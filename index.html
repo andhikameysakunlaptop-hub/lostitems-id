@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LostItems.id - Temukan Barangmu!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🌟 LostItems.id 🌟</h1>
+        <p>Platform Pelaporan dan Pencarian Barang Hilang</p>
+    </header>
+
+    <main>
+        <!-- Bagian Form Laporan -->
+        <section id="form-section">
+            <h2>📝 Laporkan Barang Hilang/Ditemukan</h2>
+            <form id="report-form">
+                <label for="namaBarang">Nama Barang:</label>
+                <input type="text" id="namaBarang" name="namaBarang" required>
+
+                <label for="deskripsi">Deskripsi:</label>
+                <textarea id="deskripsi" name="deskripsi" rows="4" required></textarea>
+
+                <label for="lokasi">Lokasi Kejadian:</label>
+                <input type="text" id="lokasi" name="lokasi" required>
+
+                <label for="kontak">Kontak Anda (Email/No HP):</label>
+                <input type="text" id="kontak" name="kontak" required>
+
+                <label for="status">Status Barang:</label>
+                <select id="status" name="status" required>
+                    <option value="Hilang">Barang Saya Hilang</option>
+                    <option value="Ditemukan">Saya Menemukan Barang</option>
+                </select>
+
+                <button type="submit">Kirim Laporan</button>
+            </form>
+            <div id="pesan-sukses" style="color: green; font-weight: bold; margin-top: 10px; display: none;">
+                Laporan berhasil dikirim! Terima kasih.
+            </div>
+        </section>
+
+        <!-- Bagian Tabel Pencarian -->
+        <section id="search-section">
+            <h2>🔍 Cari Barang yang Dilaporkan</h2>
+            <input type="text" id="search-box" placeholder="Cari nama barang...">
+            <button onclick="filterTable()">Cari</button>
+            <button onclick="loadData()">Muat Ulang Data</button>
+
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>Nama Barang</th>
+                        <th>Deskripsi</th>
+                        <th>Lokasi</th>
+                        <th>Kontak</th>
+                        <th>Status</th>
+                        <th>Tanggal</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Data akan muncul di sini -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>Dibuat oleh Andhika & Makkah | SMK N 2 Pengasih | 2025</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
