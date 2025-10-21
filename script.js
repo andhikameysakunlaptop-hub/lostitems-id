@@ -1,6 +1,4 @@
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzQZSZaqdmmpTYjO5lQMgDvh6eldLMjAZ4Wa-iSrPnC9VwOWnLFMgMr3tIIj8zsS5jD/exec"; // <-- GANTI INI!
-
-// Fungsi untuk mengirim data form ke Google Sheet
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz8tMMvQ1RuD_pwne6vNzTtfYzzJyErvc3JCaR4YDRa0DkVDvx9YmhkjJSp1s-Y0HfsOQ/exec";// Fungsi untuk mengirim data form ke Google Sheet
 document.getElementById('report-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -64,19 +62,28 @@ function loadData() {
 // Fungsi untuk mencari/filter data di tabel
 function filterTable() {
     const input = document.getElementById('search-box');
-    const filter = input.value.toLowerCase();
+    const filter = input.value.toLowerCase().trim(); // .trim() hapus spasi awal/akhir
     const table = document.getElementById('data-table');
     const tr = table.getElementsByTagName('tr');
 
     for (let i = 1; i < tr.length; i++) { // Mulai dari 1 untuk melewati header
-        const td = tr[i].getElementsByTagName('td')[0]; // Cari di kolom "Nama Barang"
-        if (td) {
-            const txtValue = td.textContent || td.innerText;
+        const tds = tr[i].getElementsByTagName('td'); // Ambil semua kolom di baris itu
+        let found = false;
+
+        // Loop melalui semua kolom (td) di baris tersebut
+        for (let j = 0; j < tds.length; j++) {
+            const txtValue = tds[j].textContent || tds[j].innerText;
             if (txtValue.toLowerCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
+                found = true;
+                break; // Jika ketemu di salah satu kolom, langsung keluar dari loop
             }
+        }
+
+        // Jika ditemukan di salah satu kolom, tampilkan barisnya
+        if (found) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
         }
     }
 }
