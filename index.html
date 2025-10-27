@@ -7,12 +7,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>🌟 LostItems.id 🌟</h1>
+    <!-- Layar Pembuka dengan Tombol Start -->
+    <div id="start-screen" class="start-screen">
+        <h1>🌟 LOSTITEMS.ID 🌟</h1>
         <p>Platform Pelaporan dan Pencarian Barang Hilang</p>
-    </header>
+        <button id="start-btn" class="start-btn" onclick="showMainContent()">Mulai</button>
+    </div>
 
-    <main>
+    <!-- Konten Utama (Form & Tabel) - Disembunyikan Awalnya -->
+    <main id="main-content" class="main-content hidden">
         <!-- Bagian Form Laporan -->
         <section id="form-section">
             <h2>📝 Laporkan Barang Hilang/Ditemukan</h2>
@@ -45,7 +48,7 @@
         <!-- Bagian Tabel Pencarian -->
         <section id="search-section">
             <h2>🔍 Cari Barang yang Dilaporkan</h2>
-            <input type="text" id="search-box" placeholder="Cari...">
+            <input type="text" id="search-box" placeholder="Cari di semua kolom (nama, lokasi, status, dll)...">
             <button onclick="filterTable()">Cari</button>
             <button onclick="loadData()">Muat Ulang Data</button>
 
@@ -68,10 +71,9 @@
     </main>
 
     <footer>
-        <p>Dibuat oleh Andhika & Makkah | SMK N 2 Pengasih | 2025</p>
+        <p>Dibuat oleh Andhika & Makkah | SMK NEGERI 2 PENGASIH | 2025</p>
     </footer>
 
     <script src="script.js"></script>
 </body>
-
 </html>
