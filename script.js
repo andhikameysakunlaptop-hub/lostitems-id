@@ -5,6 +5,12 @@ const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzg-6xTc7_nbQ5fX5vb
 function showMainContent() {
     const startScreen = document.getElementById('start-screen');
     const mainContent = document.getElementById('main-content');
+    const loadingStart = document.getElementById('loading-start');
+    const startBtn = document.getElementById('start-btn');
+
+    // Sembunyikan tombol, tampilkan loading saat START diklik
+    startBtn.style.display = 'none';
+    loadingStart.classList.remove('hidden');
 
     // Animasi menghilang layar start
     startScreen.style.animation = 'fadeOut 0.5s forwards';
@@ -13,8 +19,10 @@ function showMainContent() {
     setTimeout(() => {
         startScreen.style.display = 'none';
         mainContent.classList.remove('hidden');
-        // Muat data setelah konten utama muncul
-        loadData();
+        // Jangan muat data di sini, biarkan kosong atau tampilkan pesan default
+        // loadData(); // <-- BARIS INI DIHAPUS
+        // Sembunyikan loading setelah selesai
+        loadingStart.classList.add('hidden');
     }, 500); // 500ms = durasi animasi
 }
 
@@ -29,6 +37,11 @@ document.getElementById('report-form').addEventListener('submit', function(e) {
         kontak: document.getElementById('kontak').value,
         status: document.getElementById('status').value
     };
+
+    // Tampilkan loading saat KIRIM diklik
+    document.getElementById('pesan-sukses').style.display = 'none';
+    const loadingMain = document.getElementById('loading-main');
+    loadingMain.classList.remove('hidden'); // Tampilkan loading
 
     fetch(WEB_APP_URL, {
         method: 'POST',
@@ -47,16 +60,33 @@ document.getElementById('report-form').addEventListener('submit', function(e) {
     .catch(error => {
         console.error('Error:', error);
         alert('Terjadi kesalahan saat mengirim data.');
+    })
+    .finally(() => {
+        // Sembunyikan loading setelah selesai (baik sukses maupun gagal)
+        const loadingMain = document.getElementById('loading-main');
+        loadingMain.classList.add('hidden'); // Sembunyikan loading
     });
 });
 
 // Fungsi untuk memuat data dari Google Sheet ke tabel
 function loadData() {
+    const loadingMain = document.getElementById('loading-main');
+    const tableBody = document.getElementById('table-body');
+
+    // Tampilkan loading saat MUAT DATA diklik
+    loadingMain.classList.remove('hidden'); // Tampilkan loading
+    // Kosongkan tabel dulu sementara loading
+    tableBody.innerHTML = '<tr><td colspan="6">Memuat data...</td></tr>';
+
     fetch(WEB_APP_URL)
     .then(response => response.json())
     .then(data => {
-        const tableBody = document.getElementById('table-body');
-        tableBody.innerHTML = ''; // Kosongkan tabel dulu
+        tableBody.innerHTML = ''; // Pastikan kosong lagi sebelum diisi
+
+        if (data.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="6">Tidak ada data laporan saat ini.</td></tr>';
+            return;
+        }
 
         data.forEach(item => {
             const row = document.createElement('tr');
@@ -76,6 +106,12 @@ function loadData() {
     .catch(error => {
         console.error('Error:', error);
         alert('Gagal memuat data.');
+        tableBody.innerHTML = `<tr><td colspan="6">Gagal memuat  ${error.message}</td></tr>`;
+    })
+    .finally(() => {
+        // Sembunyikan loading setelah selesai (baik sukses maupun gagal)
+        const loadingMain = document.getElementById('loading-main');
+        loadingMain.classList.add('hidden'); // Sembunyikan loading
     });
 }
 
@@ -110,5 +146,17 @@ function filterTable() {
 
 // Panggil fungsi loadData saat halaman pertama kali dimuat (ini akan dijalankan setelah tombol Start diklik)
 // window.onload = function() {
-//     loadData(); // Kita pindahkan ini ke fungsi showMainContent
+//     loadData(); // <-- BARIS INI DIKOMENTARI
 // };
+
+// --- Script untuk membuat elemen animasi meteor di layar start ---
+document.addEventListener('DOMContentLoaded', function() {
+    const startScreen = document.getElementById('start-screen');
+    const meteorCount = 9; // Jumlah meteor yang ingin ditampilkan
+
+    for (let i = 0; i < meteorCount; i++) {
+        const meteor = document.createElement('div');
+        meteor.classList.add('meteor');
+        startScreen.appendChild(meteor);
+    }
+});
