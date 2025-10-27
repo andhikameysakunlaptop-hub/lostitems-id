@@ -5,12 +5,8 @@ const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzg-6xTc7_nbQ5fX5vb
 function showMainContent() {
     const startScreen = document.getElementById('start-screen');
     const mainContent = document.getElementById('main-content');
-    const loadingStart = document.getElementById('loading-start');
-    const startBtn = document.getElementById('start-btn');
-
-    // Sembunyikan tombol, tampilkan loading saat START diklik
-    startBtn.style.display = 'none';
-    loadingStart.classList.remove('hidden');
+    // const loadingStart = document.getElementById('loading-start'); // Tidak digunakan lagi
+    // const startBtn = document.getElementById('start-btn'); // Tidak digunakan lagi
 
     // Animasi menghilang layar start
     startScreen.style.animation = 'fadeOut 0.5s forwards';
@@ -19,10 +15,7 @@ function showMainContent() {
     setTimeout(() => {
         startScreen.style.display = 'none';
         mainContent.classList.remove('hidden');
-        // Jangan muat data di sini, biarkan kosong atau tampilkan pesan default
-        // loadData(); // <-- BARIS INI DIHAPUS
-        // Sembunyikan loading setelah selesai
-        loadingStart.classList.add('hidden');
+        // loadData(); // Jangan muat data otomatis saat klik "Mulai"
     }, 500); // 500ms = durasi animasi
 }
 
@@ -38,10 +31,8 @@ document.getElementById('report-form').addEventListener('submit', function(e) {
         status: document.getElementById('status').value
     };
 
-    // Tampilkan loading saat KIRIM diklik
+    // Tidak ada loading saat kirim
     document.getElementById('pesan-sukses').style.display = 'none';
-    const loadingMain = document.getElementById('loading-main');
-    loadingMain.classList.remove('hidden'); // Tampilkan loading
 
     fetch(WEB_APP_URL, {
         method: 'POST',
@@ -60,12 +51,10 @@ document.getElementById('report-form').addEventListener('submit', function(e) {
     .catch(error => {
         console.error('Error:', error);
         alert('Terjadi kesalahan saat mengirim data.');
-    })
-    .finally(() => {
-        // Sembunyikan loading setelah selesai (baik sukses maupun gagal)
-        const loadingMain = document.getElementById('loading-main');
-        loadingMain.classList.add('hidden'); // Sembunyikan loading
     });
+    // .finally(() => {
+    //     // Tidak ada loading untuk disembunyikan
+    // });
 });
 
 // Fungsi untuk memuat data dari Google Sheet ke tabel
@@ -146,9 +135,8 @@ function filterTable() {
 
 // Panggil fungsi loadData saat halaman pertama kali dimuat (ini akan dijalankan setelah tombol Start diklik)
 // window.onload = function() {
-//     loadData(); // <-- BARIS INI DIKOMENTARI
+//     loadData(); // Kita pindahkan ini ke fungsi showMainContent atau hapus jika tidak ingin otomatis
 // };
-
 // --- Script untuk membuat elemen animasi meteor di layar start ---
 document.addEventListener('DOMContentLoaded', function() {
     const startScreen = document.getElementById('start-screen');
