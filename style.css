@@ -4,49 +4,80 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Animasi Background Berganti Warna Biru Smooth */
-@keyframes gradientBg {
-    0% { background-color: #003282; }       /* Biru gelap */
-    25% { background-color: #0056b3; }      /* Biru medium */
-    50% { background-color: #007bff; }      /* Biru terang */
-    75% { background-color: #2575fc; }      /* Biru langit */
-    100% { background-color: #003282; }     /* Kembali ke biru gelap */
+/* Animasi untuk menghilangkan layar start */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
 
+/* Animasi Loading Spinner */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Animasi Meteor */
+@keyframes meteor {
+    0% { transform: translateX(-10%) translateY(0); opacity: 1; }
+    100% { transform: translateX(110vw) translateY(100vh); opacity: 0; }
+}
+
+/* Gaya Umum */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #003282; /* Warna awal */
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); /* Warna gelap untuk keseluruhan halaman */
     color: #333;
-    animation: fadeIn 0.8s ease-out, gradientBg 20s ease infinite; /* 20 detik untuk animasi penuh */
+    animation: fadeIn 0.8s ease-out;
     min-height: 100vh;
-    transition: background-color 0.5s ease; /* Transisi halus saat warna berubah */
 }
 
-header {
-    text-align: center;
-    background: linear-gradient(to right, #001B46, #003282);
-    color: white;
-    padding: 30px 20px;
-    border-radius: 20px;
-    margin-bottom: 30px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 1s ease-out;
-}
-
-h1 {
-    margin: 0;
-    font-size: 2.5rem;
-    letter-spacing: 1px;
-}
-
-main {
+/* Gaya Konten Utama (awalnya disembunyikan) */
+.main-content {
+    display: block;
     max-width: 1200px;
     margin: 0 auto;
     animation: fadeIn 1.2s ease-out;
+    background-color: rgba(255, 255, 255, 0.9); /* Agar konten utama tidak terlalu gelap */
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
+.hidden {
+    display: none;
+}
+
+/* Gaya Loading */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    padding: 20px;
+    background-color: rgba(0, 50, 130, 0.5); /* Warna semi transparan untuk loading */
+    border-radius: 10px;
+}
+
+.loading p {
+    margin-top: 10px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Gaya untuk bagian form dan tabel */
 section {
     background: linear-gradient(to bottom right, #ffffff, #e6f0ff);
     padding: 30px;
@@ -99,6 +130,7 @@ button {
     font-weight: 600;
     transition: all 0.3s ease;
     box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    margin: 5px;
 }
 
 button:hover {
@@ -114,6 +146,7 @@ table {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
 }
 
 th, td {
@@ -167,14 +200,10 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Animasi untuk menghilangkan layar start */
-@keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
+/* --- Gaya Layar Start dengan Tema Galaxy dan Font Graffiti --- */
 
-/* Gaya Layar Start */
 .start-screen {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -183,23 +212,36 @@ footer {
     text-align: center;
     color: white;
     padding: 20px;
-    /* Gunakan animasi background yang sudah kamu buat */
-    animation: gradientBg 20s ease infinite, fadeIn 0.8s ease-out;
+    overflow: hidden; /* Pastikan elemen animasi tidak keluar layar */
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    animation: fadeIn 0.8s ease-out;
 }
 
-.start-screen h1 {
-    font-size: 3rem;
+/* Gaya Judul dengan Font Graffiti */
+#main-title {
+    font-family: 'Chewy', cursive; /* Gunakan font yang baru ditambahkan */
+    font-size: 4rem; /* Ukuran besar */
     margin-bottom: 10px;
+    text-shadow: 3px 3px 0px #ff00ff, 6px 6px 0px #00ffff; /* Efek neon */
+    color: #fff;
+    letter-spacing: 2px;
+    animation: pulse 2s infinite alternate; /* Animasi berdenyut opsional */
+}
+
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
 }
 
 .start-screen p {
     font-size: 1.2rem;
     margin-bottom: 30px;
+    color: #ccc;
 }
 
 .start-btn {
-    background: linear-gradient(to right, #007bff, #0056b3);
-    color: white;
+    background: linear-gradient(to right, #ff00ff, #00ffff);
+    color: #000;
     padding: 15px 30px;
     border: none;
     border-radius: 10px;
@@ -207,21 +249,34 @@ footer {
     font-size: 1.2rem;
     font-weight: 600;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    box-shadow: 0 4px 10px rgba(255, 0, 255, 0.3);
+    z-index: 10; /* Pastikan tombol di atas elemen animasi */
 }
 
 .start-btn:hover {
-    background: linear-gradient(to right, #0056b3, #003d8a);
+    background: linear-gradient(to right, #00ffff, #ff00ff);
     transform: scale(1.05);
-    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+    box-shadow: 0 6px 15px rgba(0, 255, 255, 0.4);
 }
 
-/* Gaya Konten Utama (awalnya disembunyikan) */
-.main-content {
-    display: block; /* Tampilkan saat diminta */
+/* Elemen animasi meteor */
+.meteor {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff;
+    animation: meteor 3s linear infinite;
 }
 
-.hidden {
-    display: none;
-}
-/* Pastikan aturan CSS sebelumnya (warna biru dll) tetap ada di atas */
+/* Buat meteor dengan delay dan durasi acak */
+.meteor:nth-child(1) { top: 10%; left: -10px; animation-delay: 0s; animation-duration: 4s; }
+.meteor:nth-child(2) { top: 20%; left: -10px; animation-delay: 0.5s; animation-duration: 3.5s; }
+.meteor:nth-child(3) { top: 30%; left: -10px; animation-delay: 1s; animation-duration: 5s; }
+.meteor:nth-child(4) { top: 40%; left: -10px; animation-delay: 1.5s; animation-duration: 3s; }
+.meteor:nth-child(5) { top: 50%; left: -10px; animation-delay: 2s; animation-duration: 4.5s; }
+.meteor:nth-child(6) { top: 60%; left: -10px; animation-delay: 2.5s; animation-duration: 3.2s; }
+.meteor:nth-child(7) { top: 70%; left: -10px; animation-delay: 3s; animation-duration: 4.8s; }
+.meteor:nth-child(8) { top: 80%; left: -10px; animation-delay: 3.5s; animation-duration: 3.7s; }
+.meteor:nth-child(9) { top: 90%; left: -10px; animation-delay: 4s; animation-duration: 4.2s; }
