@@ -1,4 +1,24 @@
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz8tMMvQ1RuD_pwne6vNzTtfYzzJyErvc3JCaR4YDRa0DkVDvx9YmhkjJSp1s-Y0HfsOQ/exec";// Fungsi untuk mengirim data form ke Google Sheet
+// GANTI DENGAN URL WEB APP YANG BARU (TANPA SPASI!)
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzg-6xTc7_nbQ5fX5vby0rj44DA2LIGgONGHUsO8B802t0VYv4Pk0Kd5KuuWQQYGX8niw/exec";
+
+// Fungsi untuk menampilkan konten utama setelah tombol Start diklik
+function showMainContent() {
+    const startScreen = document.getElementById('start-screen');
+    const mainContent = document.getElementById('main-content');
+
+    // Animasi menghilang layar start
+    startScreen.style.animation = 'fadeOut 0.5s forwards';
+
+    // Tunggu animasi selesai, lalu tampilkan konten utama
+    setTimeout(() => {
+        startScreen.style.display = 'none';
+        mainContent.classList.remove('hidden');
+        // Muat data setelah konten utama muncul
+        loadData();
+    }, 500); // 500ms = durasi animasi
+}
+
+// Fungsi untuk mengirim data form ke Google Sheet
 document.getElementById('report-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -88,7 +108,7 @@ function filterTable() {
     }
 }
 
-// Panggil fungsi loadData saat halaman pertama kali dimuat
-window.onload = function() {
-    loadData();
-};
+// Panggil fungsi loadData saat halaman pertama kali dimuat (ini akan dijalankan setelah tombol Start diklik)
+// window.onload = function() {
+//     loadData(); // Kita pindahkan ini ke fungsi showMainContent
+// };
