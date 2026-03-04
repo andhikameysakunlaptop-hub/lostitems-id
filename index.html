@@ -4,34 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LostItems.id - Temukan Barangmu!</title>
-    <!-- Link untuk font graffiti -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Layar Pembuka dengan Tema Galaxy -->
     <div id="start-screen" class="start-screen">
         <h1 id="main-title">LOSTITEMS.ID</h1>
         <p>Platform Pelaporan dan Pencarian Barang Hilang</p>
-        <!-- Loading saat klik tombol Start -->
-        <div id="loading-start" class="loading hidden">
-            <div class="spinner"></div>
-            <p>Memuat...</p>
-        </div>
+        
         <button id="start-btn" class="start-btn" onclick="showMainContent()">Mulai</button>
-        <!-- Elemen animasi meteor akan ditambahkan oleh script.js -->
-    </div>
-
-    <!-- Konten Utama (Form & Tabel) - Disembunyikan Awalnya -->
-    <main id="main-content" class="main-content hidden">
-        <!-- Loading saat muat data -->
-        <div id="loading-main" class="loading hidden">
-            <div class="spinner"></div>
-            <p>Memuat data...</p>
         </div>
-        <!-- Bagian Form Laporan -->
+
+    <main id="main-content" class="main-content hidden">
+        
         <section id="form-section">
             <h2>📝 Laporkan Barang Hilang/Ditemukan</h2>
             <form id="report-form">
@@ -60,12 +47,13 @@
             </div>
         </section>
 
-        <!-- Bagian Tabel Pencarian -->
         <section id="search-section">
             <h2>🔍 Cari Barang yang Dilaporkan</h2>
-            <input type="text" id="search-box" placeholder="Cari di semua kolom (nama, lokasi, status, dll)...">
-            <button onclick="filterTable()">Cari</button>
-            <button onclick="loadData()">Muat Ulang Data</button>
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <input type="text" id="search-box" placeholder="Cari di semua kolom (nama, lokasi, status, dll)..." style="flex: 1;">
+                <button onclick="filterTable()">Cari</button>
+                <button onclick="loadData()">Muat Ulang Data</button>
+            </div>
 
             <table id="data-table">
                 <thead>
@@ -79,8 +67,7 @@
                     </tr>
                 </thead>
                 <tbody id="table-body">
-                    <!-- Data akan muncul di sini -->
-                </tbody>
+                    </tbody>
             </table>
         </section>
     </main>
